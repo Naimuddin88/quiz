@@ -2,6 +2,8 @@
 
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\FormController;
+use App\Http\Controllers\QuizController;
 
 /*
 |--------------------------------------------------------------------------
@@ -14,23 +16,57 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+// Route::get('/', function () {
+//     return view('welcome');
+// });
 
 
 Route::get('/dashboard', function () {
     return view('dashboard');
 })->middleware(['auth', 'verified'])->name('dashboard');
 
+
+Route::get('/table', function () {
+    return view('user.table');
+})->middleware(['auth', 'verified'])->name('table');
+
+
+
 Route::middleware('auth')->group(function () {
 });
 
+// Route::middleware(['auth', 'role:admin'])->group(function () {
+//     Route::get('user', [ProfileController::class,'index']);
+// });
 Route::middleware(['auth', 'role:admin'])->group(function () {
-    // Routes accessible only to users with 'admin' role
+    Route::get('user', [ProfileController::class, 'index'])->name('user');
 });
+
 
 Route::middleware(['auth', 'role:user'])->group(function () {
     // Routes accessible only to users with 'user' role
 });
+
+
+
+Route::get('/form', [FormController::class, 'showForm'])->name('form.show');
+Route::post('/form/submit', [FormController::class, 'submit'])->name('form.submit');
+
+Route::get('edit/{id}', [FormController::class, 'edit']);
+
+// Route::put('update-data/{id}', [FormController::class,'update']);
+Route::put('/update-data/{id}', [FormController::class, 'update'])->name('update-data');
+
+Route::get('delete/{id}', [FormController::class, 'remove']);
+
+// Route::get('/quizzes', [QuizController::class, 'index'])->name('quizzes.index');
+// Route::get('/quizzes/create', [QuizController::class, 'create'])->name('quizzes.create');
+// Route::post('/quizzes', [QuizController::class, 'store'])->name('quizzes.store');
+// Route::post('/quizzes/submit', [QuizController::class, 'submit'])->name('quizzes.submit');
+
+Route::get('/quizzes', [QuizController::class, 'index'])->name('quizzes.index');
+Route::get('/quizzes/create', [QuizController::class, 'create'])->name('quizzes.create');
+Route::post('/quizzes', [QuizController::class, 'store'])->name('quizzes.store');
+
+Route::resource('quizzes', QuizController::class);
 require __DIR__.'/auth.php';
