@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Models\User;
+
 
 class UserController extends Controller
 {
@@ -32,7 +34,7 @@ class UserController extends Controller
     
         $user->update($request->all());
     
-        return redirect()->route('users.index')->with('success', 'User updated successfully.');
+        return redirect()->route('user.index')->with('success', 'User updated successfully.');
     }
     
     

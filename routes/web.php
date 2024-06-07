@@ -4,6 +4,7 @@ use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\FormController;
 use App\Http\Controllers\QuizController;
+use App\Http\Controllers\UserController;
 
 /*
 |--------------------------------------------------------------------------
@@ -17,9 +18,11 @@ use App\Http\Controllers\QuizController;
 */
 
 // Route::get('/', function () {
-//     return view('welcome');
+//     return view('dashboard');
 // });
-
+Route::get('/', function () {
+    return view('dashboard');
+})->middleware(['auth', 'verified'])->name('dashboard');
 
 Route::get('/dashboard', function () {
     return view('dashboard');
@@ -47,12 +50,17 @@ Route::middleware(['auth', 'role:user'])->group(function () {
     // Routes accessible only to users with 'user' role
 });
 
+// Route::get('edit/{id}', [FormController::class, 'edit']);
+Route::put('/users/{user}', [UserController::class, 'update'])->name('users.update');
+Route::get('/users', [UserController::class, 'index'])->name('user.index');
 
 
+Route::get('/users', [FormController::class, 'index'])->name('user.index');
 Route::get('/form', [FormController::class, 'showForm'])->name('form.show');
 Route::post('/form/submit', [FormController::class, 'submit'])->name('form.submit');
 
-Route::get('edit/{id}', [FormController::class, 'edit']);
+
+
 
 // Route::put('update-data/{id}', [FormController::class,'update']);
 Route::put('/update-data/{id}', [FormController::class, 'update'])->name('update-data');
@@ -69,4 +77,5 @@ Route::get('/quizzes/create', [QuizController::class, 'create'])->name('quizzes.
 Route::post('/quizzes', [QuizController::class, 'store'])->name('quizzes.store');
 
 Route::resource('quizzes', QuizController::class);
+
 require __DIR__.'/auth.php';

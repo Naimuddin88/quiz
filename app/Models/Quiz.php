@@ -2,15 +2,22 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
 class Quiz extends Model
 {
+    use HasFactory;
+
     protected $fillable = ['name', 'question', 'status'];
+        // protected $fillable = ['name', 'time', 'total', 'pass', 'status', 'date'];
+
 
     public function options()
     {
-        return $this->hasMany(QuizOption::class);
+        return $this->hasMany(Option::class);
     }
 }
+
+
 

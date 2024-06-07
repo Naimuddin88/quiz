@@ -20,13 +20,15 @@
             <tbody>
                 @foreach($quizzes as $quiz)
                 <tr>
-                    <td>{{ $quiz->title }}</td>
+                    <td>{{ $quiz->name }}</td>
                     <td>{{ $quiz->questions ? $quiz->questions->count() : 0 }}</td>
                     <td>{{ $quiz->time }}</td>
                     <td>{{ $quiz->total }}</td>
                     <td>{{ $quiz->pass }}</td>
                     <td>{{ $quiz->status }}</td>
                     <td>{{ $quiz->date }}</td>
+                    {{-- <td>{{ $quiz->date ? $quiz->date->format('Y-m-d H:i:s') : 'N/A' }}</td> --}}
+                    {{-- <td>{{ $quiz->date->format('Y-m-d H:i:s') }}</td> --}}
                     <td class="align-middle">
                         <button class="btn btn-link text-secondary mb-0" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                             <i class="fa fa-ellipsis-v text-xs" aria-hidden="true"></i>
@@ -46,6 +48,7 @@
         </table>
     </div>
 
+    {{-- {{dd($quizzes)}} --}}
     @foreach($quizzes as $quiz)
     <!-- Edit Modal -->
     <div class="modal fade" id="editModal-{{ $quiz->id }}" tabindex="-1" role="dialog" aria-labelledby="editModalLabel" aria-hidden="true">

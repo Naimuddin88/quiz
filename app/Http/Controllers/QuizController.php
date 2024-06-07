@@ -3,8 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Models\Quiz;
-use App\Models\Option;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Validator;
+
 
 class QuizController extends Controller
 {
@@ -40,6 +41,55 @@ class QuizController extends Controller
         }
     
         return redirect()->route('quizzes.index')->with('success', 'Quiz created successfully.');
+    }
+
+    // public function store(Request $request)
+    // {
+    //     $validator = Validator::make($request->all(), [
+    //         'name' => 'required|string|max:255',
+    //         'time' => 'required|integer',
+    //         'total' => 'required|integer',
+    //         'pass' => 'required|integer',
+    //         'status' => 'required|string|max:255',
+    //     ]);
+    
+    //     if ($validator->fails()) {
+    //         return redirect()->back()->withErrors($validator)->withInput();
+    //     }
+    
+    //     $quiz = Quiz::create([
+    //         'name' => $request->name,
+    //         'time' => $request->time,
+    //         'total' => $request->total,
+    //         'pass' => $request->pass,
+    //         'status' => $request->status,
+    //         'date' => now(), // Set the current date and time
+    //     ]);
+    
+    //     return redirect()->route('quizzes.index')->with('success', 'Quiz created successfully!');
+    // }
+
+    public function update(Request $request, $id)
+    {
+        $request->validate([
+            'title' => 'required|string|max:255',
+            'status' => 'required|string|max:255',
+        ]);
+
+        $quiz = Quiz::findOrFail($id);
+        $quiz->update($request->only('title',  'status'));
+
+        // Handle options update if necessary
+
+        return redirect()->route('quizzes.index')->with('success', 'Quiz updated successfully.');
+    }
+    
+    public function destroy($id)
+    {
+        $quiz = Quiz::findOrFail($id);
+        $quiz->delete();
+
+        return redirect()->route('quizzes.index')->with('success', 'Quiz deleted successfully.');
     }
 }
 
