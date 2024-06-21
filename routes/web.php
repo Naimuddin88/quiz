@@ -5,6 +5,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\FormController;
 use App\Http\Controllers\QuizController;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\QuestionController;
 
 /*
 |--------------------------------------------------------------------------
@@ -33,7 +34,9 @@ Route::get('/table', function () {
     return view('user.table');
 })->middleware(['auth', 'verified'])->name('table');
 
-
+// Route::get('/nquiz', function () {
+//     return view('user.nquiz');
+// })->middleware(['auth', 'verified'])->name('nquiz');
 
 Route::middleware('auth')->group(function () {
 });
@@ -60,6 +63,12 @@ Route::get('/form', [FormController::class, 'showForm'])->name('form.show');
 Route::post('/form/submit', [FormController::class, 'submit'])->name('form.submit');
 
 
+Route::get('quizzes/new', [QuizController::class, 'createn'])->name('quizzes.new');
+
+Route::post('/questions', [QuestionController::class, 'store'])->name('questions.store');
+
+// routes/web.php
+Route::post('/questions/import', [App\Http\Controllers\QuestionController::class, 'import'])->name('questions.import');
 
 
 // Route::put('update-data/{id}', [FormController::class,'update']);
@@ -77,5 +86,10 @@ Route::get('/quizzes/create', [QuizController::class, 'create'])->name('quizzes.
 Route::post('/quizzes', [QuizController::class, 'store'])->name('quizzes.store');
 
 Route::resource('quizzes', QuizController::class);
+
+Route::get('ParentChild', 'App\Http\Controllers\CategoriesController@getCategories');
+
+
+
 
 require __DIR__.'/auth.php';

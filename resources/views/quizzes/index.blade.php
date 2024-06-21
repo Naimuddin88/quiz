@@ -14,6 +14,7 @@
                     <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Pass Mark</th>
                     <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">Status</th>
                     <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Date Created</th>
+                    {{-- <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Parent</th> --}}
                     <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7"></th>
                 </tr>
             </thead>
@@ -26,9 +27,8 @@
                     <td>{{ $quiz->total }}</td>
                     <td>{{ $quiz->pass }}</td>
                     <td>{{ $quiz->status }}</td>
-                    <td>{{ $quiz->date }}</td>
-                    {{-- <td>{{ $quiz->date ? $quiz->date->format('Y-m-d H:i:s') : 'N/A' }}</td> --}}
-                    {{-- <td>{{ $quiz->date->format('Y-m-d H:i:s') }}</td> --}}
+                    <td>{{ $quiz->created_at->format('Y-m-d H:i:s') }}</td>
+                    {{-- <td>{{ $quiz->parent ? $quiz->parent->name : 'N/A' }}</td> --}}
                     <td class="align-middle">
                         <button class="btn btn-link text-secondary mb-0" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                             <i class="fa fa-ellipsis-v text-xs" aria-hidden="true"></i>
@@ -48,7 +48,6 @@
         </table>
     </div>
 
-    {{-- {{dd($quizzes)}} --}}
     @foreach($quizzes as $quiz)
     <!-- Edit Modal -->
     <div class="modal fade" id="editModal-{{ $quiz->id }}" tabindex="-1" role="dialog" aria-labelledby="editModalLabel" aria-hidden="true">
@@ -68,10 +67,20 @@
                             <label for="title">Title</label>
                             <input type="text" class="form-control" id="title" name="title" value="{{ $quiz->title }}">
                         </div>
+                        
                         <div class="form-group">
                             <label for="status">Status</label>
                             <input type="text" class="form-control" id="status" name="status" value="{{ $quiz->status }}">
                         </div>
+                        {{-- <div class="form-group">
+                            <label for="parent_id">Parent Quiz</label>
+                            <select class="form-control" id="parent_id" name="parent_id">
+                                <option value="">None</option>
+                                @foreach($quizzes as $parentQuiz)
+                                    <option value="{{ $parentQuiz->id }}" {{ $quiz->parent_id == $parentQuiz->id ? 'selected' : '' }}>{{ $parentQuiz->name }}</option>
+                                @endforeach
+                            </select>
+                        </div> --}}
                         <button type="submit" class="btn btn-primary">Save changes</button>
                     </form>
                 </div>

@@ -6,29 +6,20 @@ use Illuminate\Support\Facades\Schema;
 
 class CreateOptionsTable extends Migration
 {
-    /**
-     * Run the migrations.
-     *
-     * @return void
-     */
     public function up()
     {
         Schema::create('options', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('quiz_id')->constrained()->onDelete('cascade');
-            $table->string('option_text');
-            $table->boolean('is_correct');
-            $table->timestamps();
+            $table->foreignId('question_id')->constrained('questions')->onDelete('cascade'); // Foreign key
+            $table->string('option'); // Option text
+            $table->boolean('is_correct')->default(false); // Indicates if the option is correct
+            $table->timestamps(); // Adds created_at and updated_at columns
         });
     }
 
-    /**
-     * Reverse the migrations.
-     *
-     * @return void
-     */
     public function down()
     {
         Schema::dropIfExists('options');
     }
 }
+

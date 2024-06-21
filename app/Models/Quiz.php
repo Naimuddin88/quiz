@@ -9,13 +9,11 @@ class Quiz extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['name', 'question', 'status'];
-        // protected $fillable = ['name', 'time', 'total', 'pass', 'status', 'date'];
+    protected $fillable = ['name', 'status','time','Tmark','Pmark']; 
 
-
-    public function options()
+    public function questions()
     {
-        return $this->hasMany(Option::class);
+        return $this->hasMany(Question::class);
     }
 }
 

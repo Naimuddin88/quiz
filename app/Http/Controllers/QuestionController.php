@@ -2,28 +2,35 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Question;
-use App\Models\Quiz;
 use Illuminate\Http\Request;
+use App\Models\Question;
+use App\Models\Option;
+use App\Models\Quiz;
 
 class QuestionController extends Controller
 {
-    public function index() {
-        // This will return a collection of questions including their answers.
-        $questionsCollection = Question::all();
-        return view('myquestionsview', compact('questionsCollection'));
-    }
-
-    // public function create(Quiz $quiz)
-    // {
-    //     return view('questions.create', compact('quiz'));
-    // }
-
-    public function store(Request $request, Quiz $quiz)
+    public function store(Request $request)
     {
-        $question = new Question($request->all());
-        $quiz->questions()->save($question);
-        return redirect()->route('quizzes.show', $quiz);
+        $request->validate([
+            'quiz_id' => 'required|exists:quizzes,id',
+            'question' => 'required|string|max:255',
+            'options' => 'required|array|min:4|max:4',
+            'options.*' => 'required|string|max:255',
+        ]);
+
+        $question = Question::create([
+            'quiz_id' => $request->quiz_id,
+            'question' => $request->question,
+        ]);
+
+        foreach ($request->options as $index => $optionText) {
+            Option::create([
+                'question_id' => $question->id,
+                'option' => $optionText,
+                'is_correct' => $index == $request->correct_option, // Adjust this as needed
+            ]);
+        }
+
+        return redirect()->back()->with('success', 'Question created successfully!');
     }
 }
-

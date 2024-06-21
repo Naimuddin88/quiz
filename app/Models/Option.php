@@ -9,11 +9,10 @@ class Option extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['option_text', 'is_correct', 'quiz_id'];
+    protected $fillable = ['question_id', 'option', 'is_correct'];
 
-    public function quiz()
+    public function question()
     {
-        return $this->belongsTo(Quiz::class);
+        return $this->belongsTo(Question::class);
     }
 }
-
