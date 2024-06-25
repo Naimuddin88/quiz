@@ -6,6 +6,7 @@ use App\Http\Controllers\FormController;
 use App\Http\Controllers\QuizController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\QuestionController;
+use App\Http\Controllers\DashboardController;
 
 /*
 |--------------------------------------------------------------------------
@@ -48,7 +49,10 @@ Route::middleware(['auth', 'role:admin'])->group(function () {
     Route::get('user', [ProfileController::class, 'index'])->name('user');
 });
 
-
+Route::get('/dashboard', [DashboardController::class, 'index'])
+    ->middleware(['auth', 'role.user'])
+    ->name('dashboard');
+    
 Route::middleware(['auth', 'role:user'])->group(function () {
     // Routes accessible only to users with 'user' role
 });
@@ -68,7 +72,8 @@ Route::get('quizzes/new', [QuizController::class, 'createn'])->name('quizzes.new
 Route::post('/questions', [QuestionController::class, 'store'])->name('questions.store');
 
 // routes/web.php
-Route::post('/questions/import', [App\Http\Controllers\QuestionController::class, 'import'])->name('questions.import');
+// Route::post('/questions/import', [App\Http\Controllers\QuestionController::class, 'import'])->name('questions.import');
+Route::get('/questions', 'App\Http\Controllers\QuestionController@index')->name('questions.index');
 
 
 // Route::put('update-data/{id}', [FormController::class,'update']);

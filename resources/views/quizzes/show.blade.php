@@ -23,7 +23,7 @@
 
     <h2>Questions</h2>
     <ul>
-        @foreach($quiz->questions as $question)
+        {{-- @foreach($quiz->questions as $question)
             <li>{{ $question->text }}
                 <ul>
                     @foreach($question->options as $option)
@@ -31,7 +31,17 @@
                     @endforeach
                 </ul>
             </li>
-        @endforeach
+        @endforeach --}}
+        @foreach ($questions as $question)
+    <tr>
+        <td>{{ $question->id }}</td>
+        <td>{{ $question->question }}</td>
+        <td>{{ $question->quiz->name }}</td>
+        <td>{{ $question->agree_response }}</td>
+        <td>{{ $question->disagree_response }}</td>
+        <!-- Other columns as needed -->
+    </tr>
+@endforeach
     </ul>
 </div>
 @endsection

@@ -77,6 +77,9 @@
                           <div class="mb-3">
                               <input type="email" class="form-control" placeholder="Email" name="email" required>
                           </div>
+                          {{-- <div class="mb-3">
+                            <input type="text" class="form-control" placeholder="Role" name="Role" required>
+                        </div> --}}
                           <div class="mb-3">
                               <input type="password" class="form-control" placeholder="Password" name="password" required autocomplete="new-password">
                           </div>

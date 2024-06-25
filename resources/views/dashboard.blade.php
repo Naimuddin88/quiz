@@ -1,27 +1,36 @@
-{{-- @extends('layouts.app') --}}
-<x-app-layout>
-    <x-slot name="header">
-        <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-            {{ __('Dashboard') }}
-        </h2>
-    </x-slot>
-
-    {{-- <div class="py-12">
-        <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
-            <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
-                <div class="p-6 text-gray-900">
-                    {{ __("You're logged in!") }}
-                </div>
+@extends('layouts.app')
+@section('content')
+<div class="row mt-4">
+    <div class="col-lg-12 mb-lg-0 mb-4">
+      <div class="card">
+        <div class="card-body p-3">
+          <div class="row">
+            <div class="col-lg-6">
+              <div class="d-flex flex-column h-100">
+                  <h5 class="font-weight-bolder">Soft UI Dashboard</h5>
+                {{-- <p class="mb-1 pt-2 text-bold">Built by developers</p> --}}
+                {{-- <p class="mb-5">From colors, cards, typography to complex elements, you will find the full documentation.</p> --}}
+                {{-- <a class="text-body text-sm font-weight-bold mb-0 icon-move-right mt-auto" href="javascript:;">
+                  Read More
+                  <i class="fas fa-arrow-right text-sm ms-1" aria-hidden="true"></i>
+                </a> --}}
             </div>
         </div>
-    </div> --}}
+        {{-- <div class="col-lg-5 ms-auto text-center mt-5 mt-lg-0">
+            <div class="bg-gradient-primary border-radius-lg h-100">
+                <div class="position-relative d-flex align-items-center justify-content-center h-100">
+                </div>
+            </div>
+        </div> --}}
+    </div>
+    {{-- <button type="button" class="btn btn-primary">
+        Create
+    </button> --}}
+    <a href="{{ route('questions.index') }}" class="btn btn-primary">Quiz Test Started</a>
 
-
-
-
-<section>
-    {{-- style="padding-left: 145px;
-    margin-left: 140px;" --}}
-
-  </endsection>
-</x-app-layout>
+</div>
+</div>
+</div>
+</div>
+  </div>
+@endsection

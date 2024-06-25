@@ -19,7 +19,15 @@ class AuthenticatedSessionController extends Controller
     {
         return view('auth.login');
     }
+    protected function authenticated(Request $request, $user)
+    {
+        if ($user->hasRole('user')) {
+            return redirect()->route('dashboard');
+        }
 
+        // Redirect to a different page for non-users
+        return redirect('/');
+    }
     /**
      * Handle an incoming authentication request.
      */
