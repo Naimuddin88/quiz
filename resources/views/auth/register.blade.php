@@ -14,6 +14,7 @@
               </div>
             </div>
           </div>
+    
 
       <div class="container">
           <div class="row mt-lg-n10 mt-md-n11 mt-n10">
@@ -68,131 +69,103 @@
                         </div>
                     </div>
                       <div class="card-body">
-                          <form role="form" action="{{ route('register') }}" method="POST">
-                              @csrf
-                              <div class="mb-3">
-                                  <input type="text" name="name" class="form-control" placeholder="Name" aria-label="Name" value="{{ old('name') }}">
-                                  @error('name')
-                                      <small class="text-danger">{{ $message }}</small>
-                                  @enderror
-                              </div>
-                              <div class="mb-3">
-                                  <input type="email" name="email" class="form-control" placeholder="Email" aria-label="Email" value="{{ old('email') }}">
-                                  @error('email')
-                                      <small class="text-danger">{{ $message }}</small>
-                                  @enderror
-                              </div>
-                              <div class="mb-3">
-                                  <input type="password" name="password" class="form-control" placeholder="Password" aria-label="Password">
-                                  @error('password')
-                                      <small class="text-danger">{{ $message }}</small>
-                                  @enderror
-                              </div>
-                              <div class="mb-3">
-                                  <input type="password" name="password_confirmation" class="form-control" placeholder="Confirm Password" aria-label="Confirm Password">
-                                  @error('password_confirmation')
-                                      <small class="text-danger">{{ $message }}</small>
-                                  @enderror
-                              </div>
-                              <div class="form-check form-check-info text-left">
-                                  <input class="form-check-input" type="checkbox" id="flexCheckDefault" onchange="toggleSubmitButton()">
-                                  <label class="form-check-label" for="flexCheckDefault">
-                                      I agree to the <a href="javascript:;" class="text-dark font-weight-bolder">Terms and Conditions</a>
-                                  </label>
-                              </div>
-                              <div class="text-center">
-                                  <button type="submit" id="submitBtn" class="btn btn-primary w-100 my-4 mb-2" disabled>Sign up</button>
-                              </div>
-                              <p class="text-sm mt-3 mb-0">Already have an account? <a href="{{ route('login') }}" class="text-dark font-weight-bolder">Sign in</a></p>
-                          </form>
+                        <form role="form text-left" method="POST" action="{{ route('register') }}">
+                          @csrf
+                          <div class="mb-3">
+                              <input type="text" class="form-control" placeholder="Name" name="name" required autofocus>
+                          </div>
+                          <div class="mb-3">
+                              <input type="email" class="form-control" placeholder="Email" name="email" required>
+                          </div>
+                          {{-- <div class="mb-3">
+                            <input type="text" class="form-control" placeholder="Role" name="Role" required>
+                        </div> --}}
+                          <div class="mb-3">
+                              <input type="password" class="form-control" placeholder="Password" name="password" required autocomplete="new-password">
+                          </div>
+                          <div class="mb-3">
+                              <input type="password" class="form-control" placeholder="Password Confirmation" name="password_confirmation" required>
+                          </div>
+                          <div class="form-check form-check-info text-left">
+                              <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault" checked>
+                              <label class="form-check-label" for="flexCheckDefault">
+                                  I agree to the <a href="javascript:;" class="text-dark font-weight-bolder">Terms and Conditions</a>
+                              </label>
+                          </div>
+                          <div class="text-center">
+                              <button type="submit" class="btn btn-primary w-100 my-4 mb-2">Sign up</button>
+                          </div>
+                          <p class="text-sm mt-3 mb-0">Already have an account? <a href="{{ route('login') }}" class="text-dark font-weight-bolder">Sign in</a></p>
+                      </form>
+                      
                       </div>
                   </div>
               </div>
           </div>
       </div>
-  </section>
-  <footer class="footer py-5">
-    <div class="container">
-      <div class="row">
-        <div class="col-lg-8 mb-4 mx-auto text-center">
-          <a href="javascript:;" target="_blank" class="text-secondary me-xl-5 me-3 mb-sm-0 mb-2">
-            Company
-          </a>
-          <a href="javascript:;" target="_blank" class="text-secondary me-xl-5 me-3 mb-sm-0 mb-2">
-            About Us
-          </a>
-          <a href="javascript:;" target="_blank" class="text-secondary me-xl-5 me-3 mb-sm-0 mb-2">
-            Team
-          </a>
-          <a href="javascript:;" target="_blank" class="text-secondary me-xl-5 me-3 mb-sm-0 mb-2">
-            Products
-          </a>
-          <a href="javascript:;" target="_blank" class="text-secondary me-xl-5 me-3 mb-sm-0 mb-2">
-            Blog
-          </a>
-          <a href="javascript:;" target="_blank" class="text-secondary me-xl-5 me-3 mb-sm-0 mb-2">
-            Pricing
-          </a>
+    </section>
+    <footer class="footer py-5">
+        <div class="container">
+          <div class="row">
+            <div class="col-lg-8 mb-4 mx-auto text-center">
+              <a href="javascript:;" target="_blank" class="text-secondary me-xl-5 me-3 mb-sm-0 mb-2">
+                Company
+              </a>
+              <a href="javascript:;" target="_blank" class="text-secondary me-xl-5 me-3 mb-sm-0 mb-2">
+                About Us
+              </a>
+              <a href="javascript:;" target="_blank" class="text-secondary me-xl-5 me-3 mb-sm-0 mb-2">
+                Team
+              </a>
+              <a href="javascript:;" target="_blank" class="text-secondary me-xl-5 me-3 mb-sm-0 mb-2">
+                Products
+              </a>
+              <a href="javascript:;" target="_blank" class="text-secondary me-xl-5 me-3 mb-sm-0 mb-2">
+                Blog
+              </a>
+              <a href="javascript:;" target="_blank" class="text-secondary me-xl-5 me-3 mb-sm-0 mb-2">
+                Pricing
+              </a>
+            </div>
+            <div class="col-lg-8 mx-auto text-center mb-4 mt-2">
+              <a href="javascript:;" target="_blank" class="text-secondary me-xl-4 me-4">
+                <span class="text-lg fab fa-dribbble" aria-hidden="true"></span>
+              </a>
+              <a href="javascript:;" target="_blank" class="text-secondary me-xl-4 me-4">
+                <span class="text-lg fab fa-twitter" aria-hidden="true"></span>
+              </a>
+              <a href="javascript:;" target="_blank" class="text-secondary me-xl-4 me-4">
+                <span class="text-lg fab fa-instagram" aria-hidden="true"></span>
+              </a>
+              <a href="javascript:;" target="_blank" class="text-secondary me-xl-4 me-4">
+                <span class="text-lg fab fa-pinterest" aria-hidden="true"></span>
+              </a>
+              <a href="javascript:;" target="_blank" class="text-secondary me-xl-4 me-4">
+                <span class="text-lg fab fa-github" aria-hidden="true"></span>
+              </a>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-8 mx-auto text-center mt-1">
+              <p class="mb-0 text-secondary">
+                Copyright © <script>
+                  document.write(new Date().getFullYear())
+                </script> 
+                Soft by Creative Tim.
+              </p>
+            </div>
+          </div>
         </div>
-        <div class="col-lg-8 mx-auto text-center mb-4 mt-2">
-          <a href="javascript:;" target="_blank" class="text-secondary me-xl-4 me-4">
-            <span class="text-lg fab fa-dribbble" aria-hidden="true"></span>
-          </a>
-          <a href="javascript:;" target="_blank" class="text-secondary me-xl-4 me-4">
-            <span class="text-lg fab fa-twitter" aria-hidden="true"></span>
-          </a>
-          <a href="javascript:;" target="_blank" class="text-secondary me-xl-4 me-4">
-            <span class="text-lg fab fa-instagram" aria-hidden="true"></span>
-          </a>
-          <a href="javascript:;" target="_blank" class="text-secondary me-xl-4 me-4">
-            <span class="text-lg fab fa-pinterest" aria-hidden="true"></span>
-          </a>
-          <a href="javascript:;" target="_blank" class="text-secondary me-xl-4 me-4">
-            <span class="text-lg fab fa-github" aria-hidden="true"></span>
-          </a>
-        </div>
-      </div>
-      <div class="row">
-        <div class="col-8 mx-auto text-center mt-1">
-          <p class="mb-0 text-secondary">
-            Copyright © <script>
-              document.write(new Date().getFullYear())
-            </script> 
-            Soft by Creative Tim.
-          </p>
-        </div>
-      </div>
-    </div>
-  </footer>
+      </footer>
 </x-guest-layout>
-
 
 <style>
     
-  .custom-form-container {
-      bottom: -25%; 
-      top: 16%;
-      left: 50%;
-      transform: translateX(-50%);
-      width: 100%; 
-  }
-  </style>
-
-
-<script>
-function toggleSubmitButton() {
-    var checkBox = document.getElementById('flexCheckDefault');
-    var submitButton = document.getElementById('submitBtn');
-    submitButton.disabled = !checkBox.checked;
+.custom-form-container {
+    bottom: -25%; 
+    top: 16%;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 100%; 
 }
-</script>
-
-
-{{-- <script>
-  const checkbox = document.querySelector('#myCheckbox');
-  const label = document.querySelector('label[for="myCheckbox"]');
-
-  label.addEventListener('click', () => {
-    checkbox.checked = !checkbox.checked;
-  });
-</script> --}}
+</style>

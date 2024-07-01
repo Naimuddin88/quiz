@@ -1,84 +1,167 @@
 @extends('layouts.app')
 
 @section('content')
-<button type="button" class="btn" data-toggle="modal" onclick="showCreateModal()">Create</button>
-
+<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#formModal">
+    Create
+</button>
 @if(isset($successMessage))
 <div class="alert alert-success">{{ $successMessage }}</div>
 @endif
-
-<div class="card-body px-0 pt-0 pb-2">
-    <table id="myTable" class="table align-items-center mb-0">
-        <thead>
-            <tr>
-                <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Name</th>
-                <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">Email</th>
-                <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Description</th>
-                <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Status</th>
-                <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Actions</th>
-            </tr>
-        </thead>
-        <tbody>
-            @foreach($users as $user)
-            <tr>
-                <td>{{ $user->name }}</td>
-                <td>{{ $user->email }}</td>
-                <td>{{ $user->description }}</td>
-                <td>{{ $user->status }}</td>
-                <td class="align-middle">
-                    <div class="dropdown">
-                        <button class="btn btn-link text-secondary mb-0" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            <i class="fa fa-ellipsis-v text-xs" aria-hidden="true"></i>
-                        </button>
-                        <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                            <button class="dropdown-item" onclick="showEditModal({{ $user->id }}, '{{ $user->name }}', '{{ $user->email }}', '{{ $user->description }}', '{{ $user->status }}')">Edit</button>
-                            <a href="{{ url('delete/'.$user->id) }}" class="dropdown-item">Delete</a>
+                    {{-- @if(session('success'))
+                        <div class="alert alert-success mt-2">
+                            {{ session('success') }}
                         </div>
+                    @endif --}}
+                <div class="card-body px-0 pt-0 pb-2">
+                    <div class="table-responsive p-0">
+                        <table class="table align-items-center mb-0">
+                            <thead>
+                                {{-- <tr>
+                                    <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Name</th>
+                                    <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">Email</th>
+                                    <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Description</th>
+                                    <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Status</th>                                         
+                                    <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Actions</th>
+                                  </tr> --}}
+                                  <tr>
+                                    <th>Name</th>
+                                    <th>Email</th>
+                                    <th>Description</th>
+                                    <th>Status</th>                                         
+                                    <th>Actions</th>
+                                  </tr>
+                            </thead>
+                            @foreach($users as $user)
+                            <tr>
+                                <td>{{ $user->name }}</td>
+                                <td>{{ $user->email }}</td>
+                                <td style="padding: 10px 20px;">{{ $user->description }}</td>
+                                <td style="padding: 10px 20px;">{{ $user->status }}</td>
+                                <td class="align-middle" style="padding: 10px 20px; display: flex;
+                                gap: 10px;">
+                                {{-- text-secondary font-weight-bold text-xs --}}
+                                    <a href="#" class="edit-user fw-normal bg-light-red border-0 data-delete p-1 px-2 ms-2 rounded" data-user-id="{{ $user->id }}" data-toggle="modal" data-target="#editModal">
+                                      Edit
+                                    </a> 
+                                    {{-- <a href="#" class="edit-user" data-user-id="{{ $user->id }}" data-toggle="modal" data-target="#editModal">Edit</a> --}}
+
+                                    <a href="{{ url('delete/'.$user->id) }}" class="fw-normal bg-light-red border-0 data-delete p-1 px-2 ms-2 rounded">
+                                        Delete
+                                      </a>
+                                  </td>
+                            </tr>
+                        @endforeach
+                        </table>
                     </div>
-                </td>
-            </tr>
-            @endforeach
-        </tbody>
-    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- The Modal -->
+    <div class="modal fade" id="formModal">
+        <div class="modal-dialog">
+            <div class="modal-content">
+
+                <!-- Modal Header -->
+                <div class="modal-header">
+                    <h4 class="modal-title">Create</h4>
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                </div>
+
+                <!-- Modal Body -->
+                <div class="modal-body">
+                  <form action="{{ route('form.submit') }}" method="POST">
+                    @csrf
+                        <div class="form-group">
+                            <label for="name">Name</label>
+                            <input type="text" class="form-control" id="name" name="name" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="email">Email</label>
+                            <input type="email" class="form-control" id="email" name="email" required>
+                        </div>
+                        <div class="form-group">
+                          <label for="description">Description</label>
+                          <input type="text" class="form-control" id="description" name="description" required>
+                      </div>
+                        <div class="form-group">
+                            <label for="status">Status</label>
+                            <input type="text" class="form-control" id="status" name="status" required>
+                        </div>
+                        <div class="form-group">
+                          <label for="password">Password</label>
+                          <input type="text" class="form-control" id="password" name="password" required>
+                      </div>
+                        <button type="submit" class="btn btn-primary">Submit</button>
+                    </form>
+                </div>
+
+            </div>
+        </div>
+    </div>
 </div>
 
-@include('components.modal')
+
+<!-- Trigger the Modal -->
+{{-- <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#formModal">
+    Edit User
+</button> --}}
+
+<!-- The Edit Modal -->
+<div class="modal fade" id="editModal">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title">Edit</h4>
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+            </div>
+            <div class="modal-body">
+                <form action="{{ route('users.update', $user->id) }}" method="POST">
+                    @csrf
+                    @method('PUT')
+                    <div class="form-group">
+                        <label for="name">Name</label>
+                        <input type="text" class="form-control" value="{{ $user->name }}" id="name" name="name" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="email">Email</label>
+                        <input type="email" class="form-control" value="{{ $user->email }}" id="email" name="email" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="description">Description</label>
+                        <input type="text" class="form-control" value="{{ $user->description }}" id="description" name="description" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="status">Status</label>
+                        <input type="text" class="form-control" value="{{ $user->status }}" id="status" name="status" required>
+                    </div>
+                    <button type="submit" class="btn btn-primary">Update</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+</div>
 
 <script>
- function showCreateModal() {
-    $('#userModalLabel').text('Create User');
-    $('#userForm').attr('action', '{{ route("users.store") }}');
-    $('#userMethod').val('POST');
-    $('#userForm').find('input[name="_method"]').remove();
-    $('#name').val('');
-    $('#email').val('');
-    $('#description').val('');
-    $('#status').val('');
-    $('#password').attr('required', 'required');
-    $('#password').val('');
-    $('#passwordField').show();
-    $('#submitButton').text('Create');
-    $('#userModal').modal('show');
-}
-
-function showEditModal(id, name, email, description, status) {
-    $('#userModalLabel').text('Edit User');
-    $('#userForm').attr('action', '/users/' + id);
-    $('#userForm').find('input[name="_method"]').remove();
-    $('#userForm').append('<input type="hidden" name="_method" value="PATCH">');
-    $('#name').val(name);
-    $('#email').val(email);
-    $('#description').val(description);
-    $('#status').val(status);
-    $('#password').removeAttr('required');
-    $('#password').val('');
-    $('#passwordField').hide();
-    $('#submitButton').text('Update');
-    $('#userModal').modal('show');
-}
-
-
+  $(document).ready(function() {
+    $('.edit-user').click(function() {
+        var userId = $(this).data('user-id');
+        $.ajax({
+            url: '/users/' + userId,
+    type: 'PUT',
+    data: formData,
+            success: function(response) {
+                $('#editModal input[name="name"]').val(response.user.name);
+                $('#editModal input[name="email"]').val(response.user.email);
+                $('#editModal input[name="description"]').val(response.user.description);
+                $('#editModal input[name="status"]').val(response.user.status);
+                $('#editModal form').attr('action', '/user/' + userId); 
+            }
+        });
+    });
+});
 </script>
-
-
 @endsection

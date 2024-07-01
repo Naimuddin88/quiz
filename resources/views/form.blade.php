@@ -6,7 +6,7 @@
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
 </head>
 <body>
-    <div class="container-fluid py-4" style="margin-left: 265px; width: 75%;">
+    <div class="container-fluid py-4" style="margin-left: 265px; width: 85%;">
         <div class="row">
             <div class="col-12">
                 <div class="card mb-4">

@@ -1,27 +1,38 @@
-{{-- @extends('layouts.app') --}}
-<x-app-layout>
-    <x-slot name="header">
-        <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-            {{ __('Dashboard') }}
-        </h2>
-    </x-slot>
+@extends('layouts.app')
 
-    {{-- <div class="py-12">
-        <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
-            <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
-                <div class="p-6 text-gray-900">
-                    {{ __("You're logged in!") }}
+@section('content')
+<div class="row mt-4">
+    <div class="col-lg-12 mb-lg-0 mb-4">
+        <div class="card">
+            <div class="card-body p-3">
+                <div class="row">
+                    <div class="col-lg-6">
+                        <div class="d-flex flex-column h-100">
+                            {{-- <h5 class="font-weight-bolder">Soft UI Dashboard</h5> --}}
+                        </div>
+                    </div>
                 </div>
+             
+                {{-- <a href="{{ route('questions.index') }}" class="btn btn-primary">Quiz Test Started</a> --}}
+                
+                <!-- Quiz List Section -->
+                <div class="row mt-4">
+                    <div class="col-lg-12">
+                        <h5 class="font-weight-bolder">Quiz List</h5>
+                        <ul class="list-group mt-3">
+                            @foreach($quizzes as $quiz)
+                                <li class="list-group-item d-flex justify-content-between align-items-center">
+                                    {{ $quiz->name }}
+                                    {{-- <a href="{{ route('questions.index') }}" class="btn btn-primary">Quiz Test Started</a> --}}
+                                    <a href="{{ route('quizzes.show', $quiz->id) }}" class="btn btn-primary btn-sm">Start Quiz</a>
+                                </li>
+                            @endforeach
+                        </ul>
+                    </div>
+                </div>
+                <!-- End of Quiz List Section -->
             </div>
         </div>
-    </div> --}}
-
-
-
-
-<section>
-    {{-- style="padding-left: 145px;
-    margin-left: 140px;" --}}
-
-  </endsection>
-</x-app-layout>
+    </div>
+</div>
+@endsection
