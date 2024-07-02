@@ -1,22 +1,19 @@
 <?php
 
-namespace Database\Seeders;
+// database/seeders/DatabaseSeeder.php
 
-// use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
+use App\Models\Quiz;
+use App\Models\Question;
 
 class DatabaseSeeder extends Seeder
 {
-    /**
-     * Seed the application's database.
-     */
-    public function run(): void
+    public function run()
     {
-        // \App\Models\User::factory(10)->create();
-
-        // \App\Models\User::factory()->create([
-        //     'name' => 'Test User',
-        //     'email' => 'test@example.com',
-        // ]);
+        // Create some quizzes
+        Quiz::factory(10)->create()->each(function ($quiz) {
+            // Create some questions for each quiz
+            Question::factory(5)->create(['quiz_id' => $quiz->id]);
+        });
     }
 }

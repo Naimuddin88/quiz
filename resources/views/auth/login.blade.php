@@ -124,6 +124,35 @@
                 <a href="javascript:;" target="_blank" class="text-secondary me-xl-4 me-4">
                   <span class="text-lg fab fa-github" aria-hidden="true"></span>
                 </a>
+<<<<<<< HEAD
+=======
+            @endif
+            <x-primary-button class="btn bg-primary w-100 mt-4 mb-0">
+                {{ __('Log in') }}
+            </x-primary-button>
+        </div>
+        
+    </form>
+                                </div>
+
+
+                                <div class="card-footer text-center pt-0 px-lg-2 px-1">
+                                <p class="mb-4 text-sm mx-auto">
+                    Don't have an account?
+                    <a  href="{{ route('register') }}" class="text-info text-gradient font-weight-bold">Sign up</a>
+
+                    {{-- <a href="javascript:;" class="text-info text-gradient font-weight-bold">Sign up</a> --}}
+                  </p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-md-6">
+              <div class="oblique position-fixed top-0 h-100 d-md-block d-none me-n8">
+                <div class="oblique-image bg-cover position-absolute fixed-top ms-auto h-100 z-index-0 ms-n6">
+                  <img src="{{ asset('img/curved6.jpg') }}">
+                </div>
+>>>>>>> 3ac226ec07428c5d1377e196fad1491de67a01ac
               </div>
             </div>
             <div class="row">

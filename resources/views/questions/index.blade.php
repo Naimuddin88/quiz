@@ -2,7 +2,11 @@
 
 @section('content')
 <div class="container">
+<<<<<<< HEAD
     <h3>Questions List</h3>
+=======
+    <h1>Questions List</h1>
+>>>>>>> 3ac226ec07428c5d1377e196fad1491de67a01ac
     <table class="table">
         <thead>
             <tr>

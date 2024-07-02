@@ -60,6 +60,7 @@ class QuestionController extends Controller
     // Redirect or do something else after saving
     return redirect()->route('quizzes.index');
 }
+<<<<<<< HEAD
 public function showQuestion($id)
     {
         // Ensure that the Question model has a relationship with options defined
@@ -73,4 +74,6 @@ public function showQuestion($id)
         // Pass question data to the view
         return view('questions', compact('question'));
     }
+=======
+>>>>>>> 3ac226ec07428c5d1377e196fad1491de67a01ac
 }
