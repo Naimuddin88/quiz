@@ -8,6 +8,16 @@ use Illuminate\Support\Facades\Hash;
 
 class FormController extends Controller
 {
+    public function index()
+    {
+        $users = User::all();
+        return view('user.index', ['users' => $users]);
+    }
+    // public function index()
+    // {
+    //     // Your logic here
+    //     return view('users.index');
+    // }
     public function showForm()
     {
         $users = User::all();
@@ -23,7 +33,7 @@ class FormController extends Controller
             'status' => 'required|string|max:255',
             'password' => 'required|string|min:8',
         ]);
-
+    
         $user = new User();
         $user->name = $request->name;
         $user->email = $request->email;
@@ -31,16 +41,10 @@ class FormController extends Controller
         $user->status = $request->status;
         $user->password = Hash::make($request->password);
         $user->save();
-        
-
+    
         return redirect()->route('user.index')->with('message', 'Your Form Submitted Successfully');
     }
-
-    public function index()
-    {
-        $users = User::all();
-        return view('user.index', ['users' => $users]);
-    }
+  
 
     public function edit($id)
     {

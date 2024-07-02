@@ -2,7 +2,7 @@
 
 @section('content')
 <div class="container">
-    <h1>Questions List</h1>
+    <h3>Questions List</h3>
     <table class="table">
         <thead>
             <tr>

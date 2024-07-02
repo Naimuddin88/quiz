@@ -8,6 +8,11 @@ use App\Models\User;
 
 class UserController extends Controller
 {
+    // public function index()
+    // {
+    //     // Your logic here
+    //     return view('users.index');
+    // }
     public function store(Request $request)
     {
         $request->validate([

@@ -22,7 +22,7 @@
             @if($prevQuizId)
                 <a href="{{ route('quiz.show', $prevQuizId) }}" class="btn btn-primary">Previous Quiz</a>
             @else
-                <a href="{{ route('quizzes.index') }}" class="btn btn-primary">Back to Quiz Index</a>
+                <a href="{{ route('dashboard') }}" class="btn btn-primary">Back to Quiz Index</a>
             @endif
             @if($nextQuizId)
                 <a href="{{ route('quiz.show', $nextQuizId) }}" class="btn btn-primary">Next Quiz</a>
