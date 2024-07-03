@@ -124,8 +124,6 @@
                 <a href="javascript:;" target="_blank" class="text-secondary me-xl-4 me-4">
                   <span class="text-lg fab fa-github" aria-hidden="true"></span>
                 </a>
-<<<<<<< HEAD
-=======
             @endif
             <x-primary-button class="btn bg-primary w-100 mt-4 mb-0">
                 {{ __('Log in') }}
@@ -152,7 +150,6 @@
                 <div class="oblique-image bg-cover position-absolute fixed-top ms-auto h-100 z-index-0 ms-n6">
                   <img src="{{ asset('img/curved6.jpg') }}">
                 </div>
->>>>>>> 3ac226ec07428c5d1377e196fad1491de67a01ac
               </div>
             </div>
             <div class="row">

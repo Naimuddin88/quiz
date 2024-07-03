@@ -1,6 +1,5 @@
 <?php
 
-// database/seeders/DatabaseSeeder.php
 
 use Illuminate\Database\Seeder;
 use App\Models\Quiz;

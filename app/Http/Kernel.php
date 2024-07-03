@@ -48,13 +48,9 @@ class Kernel extends HttpKernel
     protected $routeMiddleware = [
         // Other middleware
         'role.user' => \App\Http\Middleware\UserRoleMiddleware::class,
-<<<<<<< HEAD
         'auth' => \App\Http\Middleware\Authenticate::class,
     ];
 
-=======
-    ];
->>>>>>> 3ac226ec07428c5d1377e196fad1491de67a01ac
     /**
      * The application's middleware aliases.
      *
