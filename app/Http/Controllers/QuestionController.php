@@ -14,7 +14,11 @@ class QuestionController extends Controller
         $questions = Question::all(); // Fetch all questions
         return view('questions.index', compact('questions'));
     }
-   
+    public function createn()
+    {
+        $quizzes = Quiz::all();
+        return view('questions.new', compact('questions'));
+    }
     public function store(Request $request)
 {
     // Validate incoming request data

@@ -1,8 +1,10 @@
-@extends('layouts.app')
+{{-- @extends('layouts.app')
 
 @section('content')
 <form action="{{ route('questions.store') }}" method="POST">
   @csrf
+  <h4>Create Question</h4>
+
   <div class="form-group">
     <label for="quiz_id">Select Quiz</label>
     <select name="quiz_id" class="form-select" aria-label="Default select example" required>
@@ -12,7 +14,6 @@
         @endforeach
     </select>
   </div>
-  <h4>Create Question</h4>
   <div class="form-group">
     <label for="question">Question</label>
     <input type="text" class="form-control" id="question" name="question" required>
@@ -30,4 +31,4 @@
  
   <button type="submit" class="btn btn-primary">Save</button>
 </form>
-@endsection
+@endsection --}}

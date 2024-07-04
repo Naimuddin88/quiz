@@ -48,10 +48,11 @@ Route::middleware(['auth', 'role:admin'])->group(function () {
 
 Route::get('/dashboard', [DashboardController::class, 'index'])->middleware('auth')->name('dashboard');
 Route::get('/quizzes', [QuizController::class, 'index'])->name('quiz.index');
-Route::get('quizzes/new', [QuizController::class, 'createn'])->name('quizzes.new');
+// Route::get('quizzes/new', [QuizController::class, 'createn'])->name('quizzes.new');
 
 Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
 
+Route::get('questions/new', [QuizController::class, 'createn'])->name('questions.new');
 Route::get('/questions', [QuestionController::class, 'index'])->name('questions.index');
 Route::get('/questions/{id}', [QuestionController::class, 'showQuestion'])->name('questions.show');
 

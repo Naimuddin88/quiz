@@ -116,7 +116,7 @@
       </a>
       <div class="dropdown-menu" aria-labelledby="navbarDropdown1">
         <a target="_top" href="{{ route('questions.index') }}" class="dropdown-item nav-link">Question</a>
-        <a target="_top" href="{{ route('quizzes.new') }}" class="dropdown-item nav-link">Create Question</a>
+        <a target="_top" href="{{ route('questions.new') }}" class="dropdown-item nav-link">Create Question</a>
       </div>
  
     </li>
