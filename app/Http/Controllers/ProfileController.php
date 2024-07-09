@@ -15,22 +15,32 @@ class ProfileController extends Controller
     /**
      * Display the user's profile form.
      */
+    // public function index()
+    // {
+    //     // Your logic to show the user profile
+    //     return view('partials/profile.index'); // Adjust as per your actual view path
+    // }
     public function index()
     {
         // Your logic to get user profiles, e.g., fetching from a database
         $users = User::all();
 
         // Return a view with the users data
-        return view('user.index', compact('users'));
+        return view('user.layouts.index', compact('users'));
     }
-
-
     public function edit(Request $request): View
     {
         return view('profile.edit', [
             'user' => $request->user(),
         ]);
     }
+    public function show()
+    {
+        $user = Auth::user();
+        return view('profile.show', compact('user'));
+    }
+  
+
 
     /**
      * Update the user's profile information.
@@ -45,7 +55,7 @@ class ProfileController extends Controller
 
         $request->user()->save();
 
-        return Redirect::route('profile.edit')->with('status', 'profile-updated');
+        return redirect()->route('profile');;
     }
 
     /**

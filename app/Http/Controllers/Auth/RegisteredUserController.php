@@ -1,4 +1,4 @@
-<?php
+<?php 
 
 namespace App\Http\Controllers\Auth;
 
@@ -12,6 +12,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Validation\Rules;
 use Illuminate\View\View;
+use Spatie\Permission\Models\Role;
 
 class RegisteredUserController extends Controller
 {
@@ -45,13 +46,19 @@ class RegisteredUserController extends Controller
             'status' => 'active',
         ]);
 
+        // Ensure the 'user' role exists
+        if (!Role::where('name', 'user')->exists()) {
+            Role::create(['name' => 'user']);
+        }
+
         // Assign role to the user
-        $user->assignRole('admin'); 
+        $user->assignRole('user'); 
 
         event(new Registered($user));
 
         Auth::login($user);
 
-        return redirect(RouteServiceProvider::HOME);
+        // return redirect(RouteServiceProvider::HOME);
+        return redirect()->route('profile');
     }
 }

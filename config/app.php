@@ -159,7 +159,21 @@ return [
         /*
          * Package Service Providers...
          */
-
+// 'providers' => [
+//     'users' => [
+//         'driver' => 'eloquent',
+//         'model' => App\Models\User::class,
+//     ],
+//     'roles' => [
+//         'driver' => 'eloquent',
+//         'model' => Spatie\Permission\Models\Role::class,
+//     ],
+//     'permissions' => [
+//         'driver' => 'eloquent',
+//         'model' => Spatie\Permission\Models\Permission::class,
+//     ],
+// ],
+    \Inertia\ServiceProvider::class,
         /*
          * Application Service Providers...
          */

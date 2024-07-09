@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\User;
 use Illuminate\Support\Facades\Hash;
@@ -81,12 +82,9 @@ class FormController extends Controller
     $user->description = $validatedData['description'];
     $user->status = $validatedData['status'];
     $user->save();
-
-    // return response()->json(['success' => true]);
     return redirect()->back()->with('success', 'User data store successfully');
 
 }
-
     public function remove($id)
     {
         $user = User::find($id);

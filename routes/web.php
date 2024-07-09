@@ -7,6 +7,9 @@ use App\Http\Controllers\QuizController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\QuestionController;
 use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\UserDashboardController;
+
+
 
 /*
 |--------------------------------------------------------------------------
@@ -22,33 +25,59 @@ use App\Http\Controllers\DashboardController;
 // Route::get('/', function () {
 //     return view('dashboard');
 // });
-// Route::get('/', function () {
+
+
+// Route::get('/dashboard', [DashboardController::class, 'index'])->middleware(['auth', 'verified'])->name('dashboard');
+
+// Route::get('/dashboard', function () {
 //     return view('dashboard');
 // })->middleware(['auth', 'verified'])->name('dashboard');
 
-Route::get('/dashboard', [DashboardController::class, 'index'])->middleware(['auth', 'verified'])->name('dashboard');
-
-Route::get('/dashboard', function () {
-    return view('dashboard');
-})->middleware(['auth', 'verified'])->name('dashboard');
 
 
-Route::get('/table', function () {
-    return view('user.table');
-})->middleware(['auth', 'verified'])->name('table');
+
+Route::group(['middleware' => 'auth.user'], function () {
+    Route::get('/user.dashboard', 'DashboardController@index')->name('dashboard');
+});
+
+
+
+
+Route::get('/user', function () {
+    return view('user.user');
+})->middleware(['auth', 'verified'])->name('user');
 
 // Route::get('/users', [FormController::class, 'index'])->name('user.index');
 
 Route::middleware('auth')->group(function () {
+    
 });
 
 Route::middleware(['auth', 'role:admin'])->group(function () {
-    Route::get('user', [ProfileController::class, 'index'])->name('user');
+Route::get('user', [ProfileController::class, 'index'])->name('user');
 });
+
+Route::middleware(['auth', 'role:user'])->group(function () {
+
+});
+
+
+
+
+Route::get('/profile', [ProfileController::class, 'index'])->name('profile');
+Route::get('/profile', [ProfileController::class, 'show'])->name('profile');
+Route::get('/profile/edit', [ProfileController::class, 'edit'])->name('profile.edit');
+Route::post('/profile/update', [ProfileController::class, 'update'])->name('profile.update');
+Route::post('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
+
+
+Route::get('/u-profile', [ProfileController::class, 'show'])->name('u-profile.show');
+Route::post('/u-profile/update', [ProfileController::class, 'update'])->name('u-profile.update');
+
 
 Route::get('/dashboard', [DashboardController::class, 'index'])->middleware('auth')->name('dashboard');
 Route::get('/quizzes', [QuizController::class, 'index'])->name('quiz.index');
-// Route::get('quizzes/new', [QuizController::class, 'createn'])->name('quizzes.new');
+Route::get('quizzes/new', [QuizController::class, 'createn'])->name('quizzes.new');
 
 Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
 
@@ -75,17 +104,19 @@ Route::post('/quizzes/submit', [QuizController::class, 'submit'])->name('quizzes
 Route::get('/quizzes/{id}', [QuizController::class, 'show'])->name('quizzes.show');
 
 Route::get('/users', [UserController::class, 'index'])->name('user.index');
+
 Route::post('/form/submit', [FormController::class, 'submit'])->name('form.submit');
 
+Route::get('/user/dashboard', [UserDashboardController::class, 'index'])->name('user.dashboard')->middleware('auth');
+
+
+Route::get('/users', [UserController::class, 'index'])->name('users.index');
+Route::post('/users', [UserController::class, 'store'])->name('users.store');
+Route::put('/users/{user}', [UserController::class, 'update'])->name('users.update');
 
 Route::post('/quizzes/{id}/submit', [QuizController::class, 'submit'])->name('submit.quiz');
 
-Route::middleware(['auth', 'role:user'])->group(function () {
-    // Routes accessible only to users with 'user' role
-});
 
-Route::put('/users/{user}', [UserController::class, 'update'])->name('users.update');
-// Route::get('/users', [UserController::class, 'index'])->name('user.index');
 
 Route::get('/users', [FormController::class, 'index'])->name('user.index');
 Route::get('/form', [FormController::class, 'showForm'])->name('form.show');
@@ -106,8 +137,8 @@ Route::get('/questions', 'App\Http\Controllers\QuestionController@index')->name(
 Route::get('ParentChild', 'App\Http\Controllers\CategoriesController@getCategories');
 
 Route::middleware(['auth'])->group(function () {
-    Route::get('/users', [UserController::class, 'index'])->name('users.index'); // Display all users
-    Route::get('/quizzes', [QuizController::class, 'index'])->name('quizzes.index'); // Display all quizzes
+    Route::get('/users', [UserController::class, 'index'])->name('users.index'); 
+    Route::get('/quizzes', [QuizController::class, 'index'])->name('quizzes.index'); 
 });
 
 require __DIR__.'/auth.php';

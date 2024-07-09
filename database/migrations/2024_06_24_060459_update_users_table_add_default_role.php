@@ -6,20 +6,17 @@ use Illuminate\Support\Facades\Schema;
 
 return new class extends Migration
 {
-    /**
-     * Run the migrations.
-     */
     public function up()
     {
         Schema::table('users', function (Blueprint $table) {
-            $table->string('Role')->default('user')->change();
+            $table->string('role')->default('user');
         });
     }
     
     public function down()
     {
         Schema::table('users', function (Blueprint $table) {
-            $table->string('Role')->default(null)->change();
+            $table->string('role')->change(); // Revert the change if needed
         });
     }
     

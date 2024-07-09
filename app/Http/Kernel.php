@@ -49,6 +49,9 @@ class Kernel extends HttpKernel
         // Other middleware
         'role.user' => \App\Http\Middleware\UserRoleMiddleware::class,
         'auth' => \App\Http\Middleware\Authenticate::class,
+        'auth.user' => \App\Http\Middleware\AuthenticateUser::class,
+        'role' => \App\Http\Middleware\RoleMiddleware::class,
+
     ];
 
     /**
