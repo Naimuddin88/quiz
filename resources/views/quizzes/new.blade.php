@@ -3,7 +3,7 @@
 @section('content')
 <form action="{{ route('questions.store') }}" method="POST">
   @csrf
-  <h4>Create Question</h4>
+  <h6>Create Question</h6>
 
   <div class="form-group">
     <label for="quiz_id">Select Quiz</label>

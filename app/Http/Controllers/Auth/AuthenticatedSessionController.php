@@ -2,13 +2,14 @@
 
 namespace App\Http\Controllers\Auth;
 
-use App\Http\Controllers\Controller;
-use App\Http\Requests\Auth\LoginRequest;
-use App\Providers\RouteServiceProvider;
-use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use App\Http\Controllers\Controller;
+use Illuminate\Http\RedirectResponse;
+use Illuminate\Validation\ValidationException;
+
 use Illuminate\View\View;
+
 
 class AuthenticatedSessionController extends Controller
 {
@@ -31,15 +32,41 @@ class AuthenticatedSessionController extends Controller
     /**
      * Handle an incoming authentication request.
      */
-    public function store(LoginRequest $request): RedirectResponse
-    {
-        $request->authenticate();
+    // public function store(LoginRequest $request): RedirectResponse
+    // {
+    //     $request->authenticate();
 
+    //     $request->session()->regenerate();
+
+    //     return redirect()->intended(RouteServiceProvider::HOME);
+    // }
+
+    public function store(Request $request)
+    {
+        // Validate the login request
+        $request->validate([
+            'email' => 'required|email',
+            'password' => 'required|string',
+        ]);
+
+        // Attempt to authenticate the user
+        if (!Auth::attempt($request->only('email', 'password'), $request->filled('remember'))) {
+            throw ValidationException::withMessages([
+                'email' => [trans('auth.failed')],
+            ]);
+        }
+
+        // Regenerate session to prevent fixation
         $request->session()->regenerate();
 
-        return redirect()->intended(RouteServiceProvider::HOME);
-    }
+        // Redirect based on user role
+        if (Auth::user()->role == 'admin') {
+            return redirect()->route('user');
+        }
 
+        return redirect()->route('dashboard');
+    }
+   
     /**
      * Destroy an authenticated session.
      */

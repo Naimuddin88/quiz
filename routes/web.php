@@ -8,6 +8,7 @@ use App\Http\Controllers\UserController;
 use App\Http\Controllers\QuestionController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\UserDashboardController;
+use App\Http\Controllers\AdminController;
 
 
 
@@ -22,44 +23,49 @@ use App\Http\Controllers\UserDashboardController;
 |
 */
 
-// Route::get('/', function () {
-//     return view('dashboard');
-// });
-
-
-// Route::get('/dashboard', [DashboardController::class, 'index'])->middleware(['auth', 'verified'])->name('dashboard');
-
-// Route::get('/dashboard', function () {
-//     return view('dashboard');
-// })->middleware(['auth', 'verified'])->name('dashboard');
-
-
-
-
 Route::group(['middleware' => 'auth.user'], function () {
     Route::get('/user.dashboard', 'DashboardController@index')->name('dashboard');
 });
 
+// Route::get('/user', function () {
+//     return view('user.layouts.index');
+// })->middleware(['auth', 'verified'])->name('user');
 
-
-
-Route::get('/user', function () {
-    return view('user.user');
-})->middleware(['auth', 'verified'])->name('user');
-
-// Route::get('/users', [FormController::class, 'index'])->name('user.index');
+Route::middleware(['auth', 'role:admin'])->group(function () {
+    Route::get('user', [ProfileController::class, 'index'])->name('user');
+});
 
 Route::middleware('auth')->group(function () {
     
 });
 
-Route::middleware(['auth', 'role:admin'])->group(function () {
-Route::get('user', [ProfileController::class, 'index'])->name('user');
+Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
+
+// Route::group(['middleware' => ['auth', 'admin']], function () {
+//     Route::get('/user', [DashboardController::class, 'index'])->name('user');
+//         // Other admin routes
+//  });
+Route::middleware(['auth', 'redirect.admin'])->group(function () {
+    Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
 });
+// Route::group(['middleware' => ['auth']], function () {
+//     Route::get('/dashboard', [UserController::class, 'index'])->name('dashboard');
+// });
 
 Route::middleware(['auth', 'role:user'])->group(function () {
-
 });
+
+// Route::get('/dashboard', 'DashboardController@index')->name('dashboard');
+// Route::get('/admin/dashboard', 'AdminController@index')->name('admin.dashboard');
+Route::get('/user/management', 'UserManagementController@index')->name('user.management');
+Route::get('/quizzes', 'QuizzesController@index')->name('quizzes.index');
+Route::get('/questions', 'QuestionsController@index')->name('questions.index');
+Route::get('/profile', 'ProfileController@index')->name('profile');
+
+// Route::post('/quiz/{id}/submit', [QuizController::class, 'submitQuiz'])->name('submit.quiz');
+// Route::post('/quiz/{quiz}/submit', [QuizController::class, 'submitQuiz'])->name('submit.quiz');
+// Route::post('/quiz/{quiz}/submit', [QuizController::class, 'submitQuiz'])->name('submit.quiz');
+Route::post('/quizzes/{quizId}/submit', [QuizController::class, 'submitQuiz'])->name('quizzes.submit');
 
 
 
@@ -75,11 +81,23 @@ Route::get('/u-profile', [ProfileController::class, 'show'])->name('u-profile.sh
 Route::post('/u-profile/update', [ProfileController::class, 'update'])->name('u-profile.update');
 
 
-Route::get('/dashboard', [DashboardController::class, 'index'])->middleware('auth')->name('dashboard');
+// Route::get('/dashboard', [QuizController::class, 'index'])->middleware('auth');
+// Route::get('/quizzes/{id}', [QuizController::class, 'show'])->middleware('auth');
+
+// Route::middleware(['auth', 'role:admin'])->group(function () {
+//     Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
+//     // other admin routes
+// });
+
+// Route::middleware(['auth', 'role:user'])->group(function () {
+//     Route::get('/profile', [ProfileController::class, 'index'])->name('profile');
+//     // other user routes
+// });
+
+// Route::get('/dashboard', [DashboardController::class, 'index'])->middleware('auth')->name('dashboard');
 Route::get('/quizzes', [QuizController::class, 'index'])->name('quiz.index');
 Route::get('quizzes/new', [QuizController::class, 'createn'])->name('quizzes.new');
 
-Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
 
 Route::get('questions/new', [QuizController::class, 'createn'])->name('questions.new');
 Route::get('/questions', [QuestionController::class, 'index'])->name('questions.index');
@@ -109,20 +127,21 @@ Route::post('/form/submit', [FormController::class, 'submit'])->name('form.submi
 
 Route::get('/user/dashboard', [UserDashboardController::class, 'index'])->name('user.dashboard')->middleware('auth');
 
-
 Route::get('/users', [UserController::class, 'index'])->name('users.index');
 Route::post('/users', [UserController::class, 'store'])->name('users.store');
 Route::put('/users/{user}', [UserController::class, 'update'])->name('users.update');
 
 Route::post('/quizzes/{id}/submit', [QuizController::class, 'submit'])->name('submit.quiz');
 
-
+Route::resource('users', UserController::class);
 
 Route::get('/users', [FormController::class, 'index'])->name('user.index');
 Route::get('/form', [FormController::class, 'showForm'])->name('form.show');
 Route::post('/form', [FormController::class, 'submit'])->name('form.submit');
 Route::get('/users/edit/{id}', [FormController::class, 'edit'])->name('user.edit');
-Route::post('/users/update/{id}', [FormController::class, 'update'])->name('user.update');
+// Route::post('/users/update/{id}', [FormController::class, 'update'])->name('user.update');
+Route::put('users/{user}', [UserController::class, 'update'])->name('users.update');
+
 Route::post('/users/store', [FormController::class, 'store'])->name('user.store');
 Route::delete('/users/delete/{id}', [FormController::class, 'remove'])->name('user.remove');
 
@@ -132,7 +151,6 @@ Route::get('delete/{id}', [FormController::class, 'remove']);
 Route::post('/questions', [QuestionController::class, 'store'])->name('questions.store');
 
 Route::get('/questions', 'App\Http\Controllers\QuestionController@index')->name('questions.index');
-
 
 Route::get('ParentChild', 'App\Http\Controllers\CategoriesController@getCategories');
 

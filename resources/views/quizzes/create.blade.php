@@ -2,7 +2,7 @@
 
 @section('content')
 <div class="container mt-5">
-    <h2>Create New Quiz</h2>
+    <h6>Create New Quiz</h6>
     <form action="{{ route('quizzes.store') }}" method="POST">
         @csrf
         <div class="form-group">

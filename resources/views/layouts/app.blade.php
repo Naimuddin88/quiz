@@ -25,6 +25,11 @@
     <link rel="stylesheet" href="{{ asset('assets/css/soft-ui-dashboard.css.map') }}">
     <link rel="stylesheet" href="{{ asset('assets/css/soft-ui-dashboard.min.css') }}">
     {{-- <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet"> --}}
+   
+   {{-- <script>document.getElementById('submit').addEventListener('click', function() {
+        document.getElementById('sidebar').style.display = 'none';
+    });
+    </script> --}}
 
     <style>
         html, body {
@@ -32,6 +37,9 @@
             margin: 0;
             padding: 0;
             overflow: hidden;
+        }
+        #sidebar {
+         display: none;
         }
 
         .scrollable-container {
@@ -65,9 +73,15 @@
             @yield('content')
         </main>
     @else
-        <aside id="sidenav-main" class="sidenav navbar navbar-vertical navbar-expand-xs border-0 border-radius-xl my-3 fixed-start ms-3 ps ps--active-y">
-            @include('layouts.sidebar')
-        </aside>
+        {{-- @if (!isset($quizPage)) --}}
+        {{-- @if(Auth::check() && Auth::user()->role === 'admin' && !isset($quizPage)) --}}
+        {{-- @if(!isset($hideSidebar) || !$hideSidebar) --}}
+            <aside id="sidenav-main" class="sidenav navbar navbar-vertical navbar-expand-xs border-0 border-radius-xl my-3 fixed-start ms-3 ps ps--active-y">
+                {{-- <div id="sidebar"> --}}
+                @include('layouts.sidebar')
+            {{-- </div> --}}
+            </aside>
+        {{-- @endif --}}
 
         <main class="main-content position-relative max-height-vh-100 h-100 mt-1 border-radius-lg">
             @include('layouts.navigation')
@@ -79,7 +93,13 @@
             </div>
         </main>
     @endguest
-
+    <script>
+        document.getElementById('startQuiz').addEventListener('click', function() {
+            @if(Auth::check() && Auth::user()->role !== 'admin')
+                document.getElementById('sidebar').style.display = 'none';
+            @endif
+        });
+    </script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
     <script src="{{ asset('assets/css/js/core/popper.min.js') }}"></script>
@@ -98,5 +118,15 @@
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.12.9/dist/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
     <script src="https://cdn.datatables.net/2.0.7/js/dataTables.min.js"></script>
+
+     {{-- <script>
+        document.getElementById('startQuiz').addEventListener('click', function() {
+            // Hide sidebar for non-admin users
+            @if(Auth::check() && Auth::user()->role !== 'admin')
+                document.getElementById('sidebar').style.display = 'none';
+            @endif
+        });
+    </script> --}}
+  
 </body>
 </html>

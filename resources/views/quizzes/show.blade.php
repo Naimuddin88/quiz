@@ -1,49 +1,50 @@
 @extends('layouts.app')
 
 @section('content')
+
 <div class="container">
-    <h1>{{ $quiz->name }}</h1>
+    <h6>{{ $quiz->name }}</h6>
     <p>Time: {{ $quiz->time }}</p>
     <p>Total Marks: {{ $quiz->Tmark }}</p>
     <p>Passing Marks: {{ $quiz->Pmark }}</p>
 
-    <h2>Questions</h2>
+    <h5>Questions</h5>
     @if($quiz->questions && $quiz->questions->count() > 0)
-        <form action="{{ route('submit.quiz', $quiz->id) }}" method="POST">
-            @csrf
+    <form method="POST" action="{{ route('submit.quiz', $quiz->id) }}">
+        @csrf
             <ul style="width:70%">
                 @foreach ($quiz->questions as $question)
                     <li>
                         {{ $question->question }}
-                        
+                               
                         <div class="radio-buttons row">
-                            <div class="col">
+                            <div class="col" style="margin-top: 6px;">     
+                                <label for="agree" style="margin: 14px;{{ $question->id }}">Agree</label>
                                 <input type="radio" id="agree{{ $question->id }}" name="questions_extra[{{ $question->id }}]" value="agree">
-                                <label for="agree{{ $question->id }}">Agree</label>
                             </div>
-                            <div class="col">
-                                <input type="radio" id="agree{{ $question->id }}" name="questions_extra[{{ $question->id }}]" value="agree">
-                                <label for="agree{{ $question->id }}"></label>
-                            </div>
-                            <div class="col">
+                            <div class="col" style="margin-top: 52px;">     
                                 <input type="radio" id="agree{{ $question->id }}" name="questions_extra[{{ $question->id }}]" value="agree">
                                 <label for="agree{{ $question->id }}"></label>
                             </div>
-                            <div class="col">
+                            <div class="col" style="margin-top: 52px;">     
                                 <input type="radio" id="agree{{ $question->id }}" name="questions_extra[{{ $question->id }}]" value="agree">
                                 <label for="agree{{ $question->id }}"></label>
                             </div>
-                            <div class="col">
-                                <input type="radio" id="disagree{{ $question->id }}" name="questions_extra[{{ $question->id }}]" value="disagree">
+                            <div class="col" style="margin-top: 52px;">     
+                                <input type="radio" id="agree{{ $question->id }}" name="questions_extra[{{ $question->id }}]" value="agree">
+                                <label for="agree{{ $question->id }}"></label>
+                            </div>
+                            <div class="col" style="margin-top: 52px;">     
+                                <input type="radio"  id="disagree{{ $question->id }}" name="questions_extra[{{ $question->id }}]" value="disagree">
                                 <label for="disagree{{ $question->id }}"></label>
                             </div>
-                            <div class="col">
+                            <div class="col" style="margin-top: 6px;">     
+                                <label for="disagree" style="margin: 14px; {{ $question->id }}">Disagree</label>
                                 <input type="radio" id="disagree{{ $question->id }}" name="questions_extra[{{ $question->id }}]" value="disagree">
-                                <label for="disagree{{ $question->id }}">Disagree</label>
                             </div>
                             @foreach($question->options as $option)
-                                <div class="col">
-                                    <input type="radio" id="option{{ $option->id }}" name="questions[{{ $question->id }}]" value="{{ $option->id }}">
+                            <div class="col" style="margin-top: 52px;">     
+                                <input type="radio" id="option{{ $option->id }}" name="questions[{{ $question->id }}]" value="{{ $option->id }}">
                                     <label for="option{{ $option->id }}">{{ $option->option_text }}</label>
                                 </div>
                             @endforeach
@@ -57,4 +58,5 @@
         <p>No questions available for this quiz.</p>
     @endif
 </div>
+
 @endsection

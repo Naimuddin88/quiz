@@ -2,7 +2,7 @@
 
 @section('content')
 <div class="container">
-    <h1>Quiz Results</h1>
+    <h6>Quiz Results</h6>
     @if(isset($results) && is_array($results) && count($results) > 0)
         <ul>
             @foreach($results as $result)

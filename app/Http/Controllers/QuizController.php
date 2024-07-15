@@ -6,6 +6,7 @@ namespace App\Http\Controllers;
 use App\Models\Quiz;
 use App\Models\Option;
 use App\Models\Question;
+use App\Models\Answer;
 use Illuminate\Http\Request;
 
 class QuizController extends Controller
@@ -77,19 +78,6 @@ class QuizController extends Controller
         return view('quizzes.new', compact('quizzes'));
     }
 
-    public function submit(Request $request, $id)
-    {
-        $quiz = Quiz::findOrFail($id);
-    
-        // Retrieve all submitted answers
-        $answers = $request->input('questions');
-    
-        // Process the answers here
-    
-        // Redirect to results page with the quiz ID
-        return redirect()->route('quizzes.result', ['quiz' => $quiz->id]);
-    }
-
     public function result($quizId)
     {
         $quiz = Quiz::with('questions.options')->findOrFail($quizId);
@@ -121,4 +109,31 @@ class QuizController extends Controller
             'nextQuizId' => null,
         ]);
     }
+
+
+public function submitQuiz(Request $request, $quizId)
+{
+    $quiz = Quiz::findOrFail($quizId);
+    // dd($request->all());
+
+
+    // Check if questions are submitted
+    if ($request->has('questions') && is_array($request->questions)) {
+        foreach ($request->questions as $questionId => $answer) {
+            // Assuming you have a model named Answer to store the answers
+            Answer::create([
+                'quiz_id' => $quiz->id,
+                'question_id' => $questionId,
+                'answer' => $answer,
+            ]);
+        }
+    }
+    //  else {
+    //     // return redirect()->route('quizzes.show', $quiz->id)->with('error', 'No questions answered.');
+    // }
+
+    // return redirect()->route('quizzes.result', $quiz->id)->with('success', 'Quiz submitted successfully!');
+         return redirect()->route('dashboard')->with('success', 'Quiz submitted successfully!');
+
+}
 }
