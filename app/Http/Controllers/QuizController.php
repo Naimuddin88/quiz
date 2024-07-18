@@ -11,9 +11,19 @@ use Illuminate\Http\Request;
 
 class QuizController extends Controller
 {
+    // public function index()
+    // {
+    //     $quizzes = Quiz::all(); // Retrieve all quizzes from the database
+    //     return view('quizzes.index', compact('quizzes'));
+    // }
+    // public function index()
+    // {
+    //     $quizzes = Quiz::with('questions')->get();
+    //     return view('quizzes.index', compact('quizzes'));
+    // }
     public function index()
     {
-        $quizzes = Quiz::all(); // Retrieve all quizzes from the database
+        $quizzes = Quiz::with(['submissions', 'questions'])->get();
         return view('quizzes.index', compact('quizzes'));
     }
 

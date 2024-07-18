@@ -9,17 +9,15 @@ class Quiz extends Model
 {
     use HasFactory;
 
-    protected $fillable = [
-        'name',
-        'status',
-        'time',
-        'Tmark',
-        'Pmark',
-        // other fields
-        ];
-        public function questions()
-        {
-            return $this->hasMany(Question::class);
-        }
+    protected $fillable = ['name', 'status', 'time', 'Tmark', 'Pmark'];
+
+    public function submissions()
+    {
+        return $this->hasMany(Submission::class);
+    }
+
+    public function questions()
+    {
+        return $this->hasMany(Question::class);
+    }
 }
-        

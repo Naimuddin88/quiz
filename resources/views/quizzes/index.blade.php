@@ -8,13 +8,13 @@
             <thead>
                 <tr>
                     <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Title</th>
+                    <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">User Count</th>
                     <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Questions Count</th>
                     <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Time(Min)</th>
                     <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Total Mark</th>
                     <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Pass Mark</th>
                     <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">Status</th>
                     <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Date Created</th>
-                    {{-- <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Parent</th> --}}
                     <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7"></th>
                 </tr>
             </thead>
@@ -22,13 +22,13 @@
                 @foreach($quizzes as $quiz)
                 <tr>
                     <td>{{ $quiz->name }}</td>
+                    <td>{{ $quiz->submissions()->count() }}</td>
                     <td>{{ $quiz->questions ? $quiz->questions->count() : 0 }}</td>
                     <td>{{ $quiz->time }}</td>
-                    <td>{{ $quiz->total }}</td>
-                    <td>{{ $quiz->pass }}</td>
+                    <td>{{ $quiz->Tmark }}</td>
+                    <td>{{ $quiz->Pmark }}</td>
                     <td>{{ $quiz->status }}</td>
                     <td>{{ $quiz->created_at->format('Y-m-d H:i:s') }}</td>
-                    {{-- <td>{{ $quiz->parent ? $quiz->parent->name : 'N/A' }}</td> --}}
                     <td class="align-middle">
                         <button class="btn btn-link text-secondary mb-0" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                             <i class="fa fa-ellipsis-v text-xs" aria-hidden="true"></i>
@@ -50,11 +50,11 @@
 
     @foreach($quizzes as $quiz)
     <!-- Edit Modal -->
-    <div class="modal fade" id="editModal-{{ $quiz->id }}" tabindex="-1" role="dialog" aria-labelledby="editModalLabel" aria-hidden="true">
+    <div class="modal fade" id="editModal-{{ $quiz->id }}" tabindex="-1" role="dialog" aria-labelledby="editModalLabel-{{ $quiz->id }}" aria-hidden="true">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="editModalLabel">Edit Quiz</h5>
+                    <h5 class="modal-title" id="editModalLabel-{{ $quiz->id }}">Edit Quiz</h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
@@ -65,22 +65,24 @@
                         @method('PUT')
                         <div class="form-group">
                             <label for="title">Title</label>
-                            <input type="text" class="form-control" id="title" name="title" value="{{ $quiz->title }}">
+                            <input type="text" class="form-control" id="title" name="title" value="{{ $quiz->name }}">
                         </div>
                         
                         <div class="form-group">
                             <label for="status">Status</label>
                             <input type="text" class="form-control" id="status" name="status" value="{{ $quiz->status }}">
                         </div>
-                        {{-- <div class="form-group">
-                            <label for="parent_id">Parent Quiz</label>
-                            <select class="form-control" id="parent_id" name="parent_id">
-                                <option value="">None</option>
-                                @foreach($quizzes as $parentQuiz)
-                                    <option value="{{ $parentQuiz->id }}" {{ $quiz->parent_id == $parentQuiz->id ? 'selected' : '' }}>{{ $parentQuiz->name }}</option>
-                                @endforeach
-                            </select>
-                        </div> --}}
+                        
+                        <div class="form-group">
+                            <label for="Tmark">Total Mark</label>
+                            <input type="text" class="form-control" id="Tmark" name="Tmark" value="{{ $quiz->Tmark }}">
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="Pmark">Pass Mark</label>
+                            <input type="text" class="form-control" id="Pmark" name="Pmark" value="{{ $quiz->Pmark }}">
+                        </div>
+                        
                         <button type="submit" class="btn btn-primary">Save changes</button>
                     </form>
                 </div>

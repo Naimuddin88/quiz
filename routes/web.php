@@ -38,6 +38,7 @@ Route::middleware(['auth', 'role:admin'])->group(function () {
 Route::middleware('auth')->group(function () {
     
 });
+Route::get('/users', [UserController::class, 'index'])->name('user.index');
 
 Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
 
@@ -121,7 +122,6 @@ Route::post('/quizzes', [QuizController::class, 'store'])->name('quizzes.store')
 Route::post('/quizzes/submit', [QuizController::class, 'submit'])->name('quizzes.submit');
 Route::get('/quizzes/{id}', [QuizController::class, 'show'])->name('quizzes.show');
 
-Route::get('/users', [UserController::class, 'index'])->name('user.index');
 
 Route::post('/form/submit', [FormController::class, 'submit'])->name('form.submit');
 
