@@ -9,7 +9,7 @@
     <label for="quiz_id">Select Quiz</label>
     <select name="quiz_id" class="form-select" aria-label="Default select example" required>
         <option value="" selected disabled>Open this select menu</option>
-        @foreach($quizzes as $quiz)
+        @foreach($ as $quiz)
         <option value="{{ $quiz->id }}">{{ $quiz->name }}</option>
         @endforeach
     </select>

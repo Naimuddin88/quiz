@@ -8,7 +8,6 @@ use App\Http\Controllers\UserController;
 use App\Http\Controllers\QuestionController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\UserDashboardController;
-use App\Http\Controllers\AdminController;
 
 
 
@@ -53,6 +52,8 @@ Route::middleware(['auth', 'redirect.admin'])->group(function () {
 //     Route::get('/dashboard', [UserController::class, 'index'])->name('dashboard');
 // });
 
+// Route::get('/quizzes/{id}', [QuizController::class, 'show'])->name('quizzes.show');
+
 Route::middleware(['auth', 'role:user'])->group(function () {
 });
 
@@ -68,7 +69,20 @@ Route::get('/profile', 'ProfileController@index')->name('profile');
 // Route::post('/quiz/{quiz}/submit', [QuizController::class, 'submitQuiz'])->name('submit.quiz');
 Route::post('/quizzes/{quizId}/submit', [QuizController::class, 'submitQuiz'])->name('quizzes.submit');
 
+// Route::post('/submit-quiz/{quiz}', [QuizController::class, 'submitQuiz'])->name('submit.quiz');
 
+// // Route::post('/quiz/{quizId}/submit', [QuizController::class, 'submitQuiz'])->name('quizzes.submit');
+// Route::get('/quiz/{quizId}', [QuizController::class, 'show'])->name('quizzes.show');
+
+// Route::post('/quiz/{quiz}/submit', [QuizController::class, 'submit'])->name('quiz.submit');
+// Route::get('/dashboard', function () {
+//     return view('dashboard');
+// })->name('dashboard');
+
+// Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
+
+// Route::get('/quizzes', [QuizController::class, 'index'])->name('quiz.index');
+// Route::get('quizzes/create', [QuizController::class, 'createn'])->name('quizzes.new');
 
 
 Route::get('/profile', [ProfileController::class, 'index'])->name('profile');

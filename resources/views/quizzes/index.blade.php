@@ -10,7 +10,7 @@
                     <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Title</th>
                     <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">User Count</th>
                     <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Questions Count</th>
-                    <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Time(Min)</th>
+                    <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Time (Min)</th>
                     <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Total Mark</th>
                     <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Pass Mark</th>
                     <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">Status</th>
@@ -22,7 +22,7 @@
                 @foreach($quizzes as $quiz)
                 <tr>
                     <td>{{ $quiz->name }}</td>
-                    <td>{{ $quiz->submissions()->count() }}</td>
+                    <td>{{ $quiz->id }}</td>
                     <td>{{ $quiz->questions ? $quiz->questions->count() : 0 }}</td>
                     <td>{{ $quiz->time }}</td>
                     <td>{{ $quiz->Tmark }}</td>
@@ -50,11 +50,11 @@
 
     @foreach($quizzes as $quiz)
     <!-- Edit Modal -->
-    <div class="modal fade" id="editModal-{{ $quiz->id }}" tabindex="-1" role="dialog" aria-labelledby="editModalLabel-{{ $quiz->id }}" aria-hidden="true">
+    <div class="modal fade" id="editModal-{{ $quiz->id }}" tabindex="-1" role="dialog" aria-labelledby="editModalLabel" aria-hidden="true">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="editModalLabel-{{ $quiz->id }}">Edit Quiz</h5>
+                    <h5 class="modal-title" id="editModalLabel">Edit Quiz</h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>

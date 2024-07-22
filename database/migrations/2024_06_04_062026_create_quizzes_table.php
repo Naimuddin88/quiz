@@ -11,10 +11,10 @@ class CreateQuizzesTable extends Migration
         Schema::create('quizzes', function (Blueprint $table) {
             $table->id();
             $table->string('name');
-            $table->string('status')->default('active'); 
-            $table->string('time')->nullable(); 
-            $table->string('Tmark');
-            $table->string('Pmark'); 
+            $table->string('status');
+            $table->integer('time');
+            $table->integer('Tmark');
+            $table->integer('Pmark');
             $table->timestamps();
         });
     }

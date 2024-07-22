@@ -12,7 +12,6 @@
                     </div>
                 </div>
              
-                
                 <!-- Quiz List Section -->
                 <div class="row mt-4">
                     <div class="col-lg-12">
@@ -21,7 +20,7 @@
                             @foreach($quizzes as $quiz)
                                 <li class="list-group-item d-flex justify-content-between align-items-center">
                                     {{ $quiz->name }}
-                                    <a href="{{ route('quizzes.show', $quiz->id) }}" id="startQuiz" class="btn btn-primary btn-sm">Start Quiz</a>
+                                    <a href="{{ route('quizzes.show', $quiz->id) }}" class="btn btn-primary btn-sm">Start Quiz</a>
                                 </li>
                             @endforeach
                         </ul>

@@ -10,8 +10,9 @@ class CreateSubmissionsTable extends Migration
     {
         Schema::create('submissions', function (Blueprint $table) {
             $table->id();
+            $table->foreignId('user_id')->constrained()->onDelete('cascade');
             $table->foreignId('quiz_id')->constrained()->onDelete('cascade');
-            $table->string('user_id');
+            $table->integer('score');
             $table->timestamps();
         });
     }
