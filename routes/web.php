@@ -57,6 +57,20 @@ Route::middleware(['auth', 'redirect.admin'])->group(function () {
 Route::middleware(['auth', 'role:user'])->group(function () {
 });
 
+Route::get('/quiz/{quiz}/results', [QuizController::class, 'showResults'])->name('quizzes.result');
+Route::get('quiz/{quiz}/result', [QuizController::class, 'showResults'])->name('quizzes.result');
+
+
+Route::get('/quiz/{quizId}', [QuizController::class, 'show'])->name('quizzes.show');
+Route::post('/quiz/{quizId}/submit', [QuizController::class, 'submit'])->name('quizzes.submit');
+Route::get('/quiz/{quizId}/result', [QuizController::class, 'result'])->name('quizzes.result');
+
+Route::get('/quiz/{quizId}', [QuizController::class, 'show'])->name('quiz.show');
+Route::post('/quiz/{quizId}/submit', [QuizController::class, 'submit'])->name('quiz.submit');
+Route::get('/quiz/{quizId}/result', [QuizController::class, 'result'])->name('quiz.result');
+
+
+
 // Route::get('/dashboard', 'DashboardController@index')->name('dashboard');
 // Route::get('/admin/dashboard', 'AdminController@index')->name('admin.dashboard');
 Route::get('/user/management', 'UserManagementController@index')->name('user.management');

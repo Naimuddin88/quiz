@@ -1,4 +1,4 @@
-@extends('layouts.app')
+{{-- @extends('layouts.app')
 
 @section('content')
 <div class="container">
@@ -30,6 +30,36 @@
         </div>
     @else
         <p>No results to display.</p>
+    @endif
+</div>
+@endsection --}}
+
+
+
+<!-- quizzes/result.blade.php -->
+
+@extends('layouts.app')
+
+@section('content')
+<div class="container">
+    <h5>Results for Quiz: {{ $quiz->name }}</h5>
+    
+    @if(isset($submission)) <!-- Check if $submission is set -->
+        <p>Submission Details:</p>
+        <ul>
+            @foreach($quiz->questions as $question)
+                <li>
+                    {{ $question->question }}:
+                    @foreach($question->options as $option)
+                        @if($option->id == $submission->answers->firstWhere('question_id', $question->id)->answer)
+                            {{ $option->option_text }} (Your Answer)
+                        @endif
+                    @endforeach
+                </li>
+            @endforeach
+        </ul>
+    @else
+        {{-- <p>No submission found for this quiz.</p> --}}
     @endif
 </div>
 @endsection

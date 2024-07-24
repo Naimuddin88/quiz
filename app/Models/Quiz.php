@@ -13,8 +13,9 @@ class Quiz extends Model
 
     public function submissions()
     {
-        return $this->hasMany(Submission::class);
+        return $this->hasMany(QuizSubmission::class);
     }
+    
 
     public function questions()
     {
@@ -24,4 +25,5 @@ class Quiz extends Model
     // {
     //     return $this->belongsToMany(User::class);
     // }
+   
 }
