@@ -54,6 +54,7 @@ class Kernel extends HttpKernel
         'admin' => \App\Http\Middleware\AdminMiddleware::class,
         'redirect.admin' => \App\Http\Middleware\RedirectIfAdmin::class,
 
+
     ];
 
     /**

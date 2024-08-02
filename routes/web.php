@@ -11,6 +11,8 @@ use App\Http\Controllers\UserDashboardController;
 
 
 
+
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -29,6 +31,16 @@ Route::get('/dashboard', 'DashboardController@index')->name('dashboard');
 // });
 Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
 
+// User Dashboard
+Route::middleware(['auth', 'role:user'])->group(function () {
+    Route::get('/dashboard', [DashboardController::class, 'userDashboard'])->name('dashboard');
+});
+
+// Admin Dashboard
+Route::middleware(['auth', 'role:admin'])->group(function () {
+    Route::get('/admin/dashboard', [DashboardController::class, 'adminDashboard'])->name('admin.dashboard');
+});
+
 // Route::get('/user', function () {
 //     return view('user.layouts.index');
 // })->middleware(['auth', 'verified'])->name('user');
@@ -40,6 +52,8 @@ Route::middleware(['auth', 'role:admin'])->group(function () {
 Route::middleware('auth')->group(function () {
     
 });
+
+
 Route::get('/users', [UserController::class, 'index'])->name('user.index');
 
 Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
