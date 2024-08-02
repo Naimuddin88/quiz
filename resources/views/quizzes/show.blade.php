@@ -20,31 +20,45 @@
     @else
         <h5>Questions</h5>
         @if($quiz->questions && $quiz->questions->count() > 0)
-        {{-- <form method="POST" action="{{ route('submit.quiz', $quiz->id) }}"> --}}
-            <form action="{{ route('quiz.submit', ['quizId' => $quiz->id]) }}" method="POST">
-
-            @csrf
-                <ul style="width:70%">
-                    @foreach ($quiz->questions as $question)
-            <li>
-                {{ $question->question }}
-                <div class="radio-group">
-                    @for ($j = 1; $j <= 6; $j++)
-                        <div class="radio">
-                            <input type="radio" name="question_{{ $question->id }}" id="question_{{ $question->id }}_option_{{ $j }}" value="{{ $j }}" required>
-                            @if ($j == 1)
-                                <label for="question_{{ $question->id }}_option_{{ $j }}">Agree</label>
-                            @elseif ($j == 6)
-                                <label for="question_{{ $question->id }}_option_{{ $j }}">Disagree</label>
-                            @endif
-                        </div>
-                    @endfor
-                </div>
-            </li>
-        @endforeach
-                </ul>
-                <button type="submit" class="btn btn-primary">Submit Quiz</button>
-            </form>
+            <div class="wrap">
+                <form action="{{ route('quiz.submit', ['quizId' => $quiz->id]) }}" method="POST">
+                    @csrf
+                    <ul class="questions-list">
+                        @foreach ($quiz->questions as $question)
+                            <li class="question-item">
+                                <div class="question-text">{{ $question->question }}</div>
+                                <ul class="likert">
+                                    <li>
+                                        <input type="radio" name="question_{{ $question->id }}" value="strong_agree" required>
+                                        <label>Strongly agree</label>
+                                    </li>
+                                    <li>
+                                        <input type="radio" name="question_{{ $question->id }}" value="agree" required>
+                                        <label>Agree</label>
+                                    </li>
+                                    <li>
+                                        <input type="radio" name="question_{{ $question->id }}" value="neutral" required>
+                                        <label>Neutral</label>
+                                    </li>
+                                    <li>
+                                        <input type="radio" name="question_{{ $question->id }}" value="disagree" required>
+                                        <label>Disagree</label>
+                                    </li>
+                                    <li>
+                                        <input type="radio" name="question_{{ $question->id }}" value="strong_disagree" required>
+                                        <label>Strongly disagree</label>
+                                    </li>
+                                    <li>
+                                        <input type="radio" name="question_{{ $question->id }}" value="na" required>
+                                        <label>N/A</label>
+                                    </li>
+                                </ul>
+                            </li>
+                        @endforeach
+                    </ul>
+                    <button type="submit" class="btn btn-primary">Submit Quiz</button>
+                </form>
+            </div>
         @else
             <p>No questions available for this quiz.</p>
         @endif
@@ -52,14 +66,100 @@
 </div>
 
 <style>
-    .radio-group {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-}
+    html, body {
+        padding: 0;
+        margin: 0;
+    }
 
-.radio {
-    margin: 0 5px;
-}
+    .wrap {
+        font: 12px Arial, sans-serif;
+    }
+
+    .questions-list {
+        list-style: none;
+        padding: 0;
+    }
+
+    .question-item {
+        margin-bottom: 20px;
+    }
+
+    .question-text {
+        font-size: 16px;
+        font-weight: bold;
+        margin-bottom: 10px;
+    }
+
+    .likert {
+        list-style: none;
+        width: 100%;
+        margin: 0;
+        padding: 0;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        position: relative;
+    }
+
+    .likert:before {
+        content: '';
+        position: absolute;
+        top: 5px; 
+        left: 0;
+        width: 100%;
+        height: 4px;
+        background-color: #efefef;
+        z-index: 0;
+    }
+
+    .likert li {
+        position: relative;
+        z-index: 1;
+        width: 15%;
+        text-align: center;
+    }
+
+    .likert li input[type=radio] {
+        display: block;
+        margin: 0 auto;
+        position: relative;
+        z-index: 1;
+    }
+
+    .likert li label {
+        display: block;
+        margin-top: 5px;
+        position: relative;
+        z-index: 1;
+    }
+
+    .buttons {
+        margin: 30px 0;
+        padding: 0 4.25%;
+        text-align: right;
+    }
+
+    .buttons button {
+        padding: 5px 10px;
+        background-color: #67ab49;
+        border: 0;
+        border-radius: 3px;
+    }
+
+    .buttons .clear {
+        background-color: #e9e9e9;
+    }
+
+    .buttons .submit {
+        background-color: #67ab49;
+    }
+
+    .buttons .clear:hover {
+        background-color: #ccc;
+    }
+
+    .buttons .submit:hover {
+        background-color: #14892c;
+    }
 </style>
 @endsection

@@ -21,10 +21,13 @@ use App\Http\Controllers\UserDashboardController;
 | be assigned to the "web" middleware group. Make something great!
 |
 */
+// Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
+Route::get('/dashboard', 'DashboardController@index')->name('dashboard');
 
-Route::group(['middleware' => 'auth.user'], function () {
-    Route::get('/user.dashboard', 'DashboardController@index')->name('dashboard');
-});
+// Route::group(['middleware' => 'auth.user'], function () {
+//     Route::get('/user.dashboard', 'DashboardController@index')->name('dashboard');
+// });
+Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
 
 // Route::get('/user', function () {
 //     return view('user.layouts.index');
@@ -58,11 +61,11 @@ Route::middleware(['auth', 'role:user'])->group(function () {
 });
 
 Route::get('/quiz/{quiz}/results', [QuizController::class, 'showResults'])->name('quizzes.result');
-Route::get('quiz/{quiz}/result', [QuizController::class, 'showResults'])->name('quizzes.result');
+// Route::get('quiz/{quiz}/result', [QuizController::class, 'showResults'])->name('quizzes.result');
 
 
-Route::get('/quiz/{quizId}', [QuizController::class, 'show'])->name('quizzes.show');
-Route::post('/quiz/{quizId}/submit', [QuizController::class, 'submit'])->name('quizzes.submit');
+// Route::get('/quiz/{quizId}', [QuizController::class, 'show'])->name('quizzes.show');
+// Route::post('/quiz/{quizId}/submit', [QuizController::class, 'submit'])->name('quizzes.submit');
 Route::get('/quiz/{quizId}/result', [QuizController::class, 'result'])->name('quizzes.result');
 
 Route::get('/quiz/{quizId}', [QuizController::class, 'show'])->name('quiz.show');
@@ -81,7 +84,7 @@ Route::get('/profile', 'ProfileController@index')->name('profile');
 // Route::post('/quiz/{id}/submit', [QuizController::class, 'submitQuiz'])->name('submit.quiz');
 // Route::post('/quiz/{quiz}/submit', [QuizController::class, 'submitQuiz'])->name('submit.quiz');
 // Route::post('/quiz/{quiz}/submit', [QuizController::class, 'submitQuiz'])->name('submit.quiz');
-Route::post('/quizzes/{quizId}/submit', [QuizController::class, 'submitQuiz'])->name('quizzes.submit');
+// Route::post('/quizzes/{quizId}/submit', [QuizController::class, 'submitQuiz'])->name('quizzes.submit');
 
 // Route::post('/submit-quiz/{quiz}', [QuizController::class, 'submitQuiz'])->name('submit.quiz');
 
@@ -136,11 +139,11 @@ Route::get('questions', [QuestionController::class, 'index'])->name('questions.i
 Route::get('questions/create', [QuestionController::class, 'create'])->name('questions.create');
 
 Route::resource('quizzes', QuizController::class);
-Route::get('quiz/{quiz}/result', [QuizController::class, 'result'])->name('quizzes.result');
+// Route::get('quiz/{quiz}/result', [QuizController::class, 'result'])->name('quizzes.result');
 
-Route::get('/quiz/{id}', [QuizController::class, 'show'])->name('quizzes.show');
+// Route::get('/quiz/{id}', [QuizController::class, 'show'])->name('quizzes.show');
 Route::post('/quiz/{quiz}/submit', [QuizController::class, 'submit'])->name('submit.quiz');
-Route::get('/quiz/{quiz}/result', [QuizController::class, 'result'])->name('quizzes.result');
+// Route::get('/quiz/{quiz}/result', [QuizController::class, 'result'])->name('quizzes.result');
 Route::get('/question/{id}', [QuestionController::class, 'showQuestion']);
 
 Route::get('/quizzes', [QuizController::class, 'index'])->name('quizzes.index');

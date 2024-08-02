@@ -20,5 +20,8 @@ class DashboardController extends Controller
         $quizzes = Quiz::all(); // Fetch all quizzes from the database
         return view('dashboard', compact('quizzes'));
     }
-  
+    // public function index()
+    // {
+    //     return view('dashboard');
+    // }
 }
